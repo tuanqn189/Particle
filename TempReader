@@ -1,0 +1,26 @@
+// This #include statement was automatically added by the Particle IDE.
+#include <Adafruit_DHT.h>
+
+#define DHTPIN D5
+
+#define DHTTYPE DHT22
+
+DHT dht(DHTPIN, DHTTYPE);
+int led = D7;
+
+void setup() {
+    dht.begin();
+    pinMode(led, OUTPUT);
+}
+
+float temp;
+
+void loop() {
+    delay(1000);
+    digitalWrite(led, HIGH);
+    temp = dht.getTempCelcius();
+    delay(1000);
+
+    Particle.publish("temp", String(temp), PRIVATE); 
+    digitalWrite(led, LOW);
+}
